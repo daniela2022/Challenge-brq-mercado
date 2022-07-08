@@ -1,6 +1,5 @@
 package com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request;
 
-import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelFiltroRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequest;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
@@ -25,21 +24,6 @@ class ProdutoEntryPointMapperRequestTest {
     }
 
     @Test
-    void testeConverteModelFilterRequestSucesso(){
-        var mockProduto = mockProdutoModelFiltroRequest();
-
-        Produto produto = ProdutoEntryPointMapperRequest.convert(mockProduto);
-
-        assertNotNull(produto);
-        assertAll(
-                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produto.getId()),
-                () -> assertEquals("shampoo",produto.getNome()),
-                () -> assertEquals("Kerastase", produto.getMarca()),
-                () -> assertEquals(125.0, produto.getPreco())
-        );
-    }
-
-    @Test
     void testeConverteStringIdProdutoSucesso(){
         var mockProduto = mockProdutoStringIdProduto("3322c422-a336-4064-96b3-2fc39ea4a108");
 
@@ -54,21 +38,6 @@ class ProdutoEntryPointMapperRequestTest {
     private Produto mockProdutoStringIdProduto(String idProduto){
         return Produto.builder()
                 .id(idProduto)
-                .build();
-    }
-
-
-
-
-
-
-
-    private ProdutoModelFiltroRequest mockProdutoModelFiltroRequest(){
-        return ProdutoModelFiltroRequest.builder()
-                .idProduto("3322c422-a336-4064-96b3-2fc39ea4a108")
-                .nomeProduto("shampoo")
-                .marcaProduto("Kerastase")
-                .precoProduto(125.0)
                 .build();
     }
 

@@ -11,7 +11,7 @@ public interface ProdutoGateway {
 
     Produto criarProduto(Produto produto);
 
-    List<Produto> listarProdutos(Produto produto);
+    List<Produto> listarProdutos();
 
     Optional<Produto> detalharProdutoPorId(String id);
 

@@ -2,7 +2,6 @@ package com.challengebrq.mercado.projetochallenge.entrypoint.controller;
 
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request.ProdutoEntryPointMapperRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.response.ProdutoEntryPointMapperResponse;
-import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelFiltroRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.ProdutoModelResponse;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
@@ -31,15 +30,15 @@ public class ProdutoController {
         Produto produtoResponseDomain = produtoUseCase.criarProduto(produtoRequestDomain);
 
         ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse
-                .converter(produtoResponseDomain);
+                .converterProdutoParaModel(produtoResponseDomain);
 
         return new ResponseEntity<>(produtoModelResponse, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoModelResponse>> listarProdutos(ProdutoModelFiltroRequest produtoModelFiltroRequest) {
-        Produto produtoRequestDomain = ProdutoEntryPointMapperRequest.convert(produtoModelFiltroRequest);
-        List<Produto> produtoResponseDomain = produtoUseCase.listarProduto(produtoRequestDomain);
+    public ResponseEntity<List<ProdutoModelResponse>> listarProdutos() {
+
+        List<Produto> produtoResponseDomain = produtoUseCase.listarProduto();
 
         List<ProdutoModelResponse> produtoModelResponse = ProdutoEntryPointMapperResponse.convert(produtoResponseDomain);
 
@@ -57,7 +56,7 @@ public class ProdutoController {
 
         Produto produto = produtoUseCase.detalharProdutoPorId(idProduto);
 
-        ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse.converter(produto);
+        ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse.converterProdutoParaModel(produto);
 
         if (produtoModelResponse.getIdProduto().isEmpty()) {
             ResponseEntity.notFound().build();
@@ -71,8 +70,8 @@ public class ProdutoController {
     @DeleteMapping(value = "/{idProduto}")
     public ResponseEntity<?> deletarProdutoPorId(@PathVariable String idProduto) {
         produtoUseCase.deletarProduto(idProduto);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 

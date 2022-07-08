@@ -14,7 +14,7 @@ class ProdutoEntryPointMapperResponseTest {
     void testeConverteResponseSucesso(){
         Produto mockProduto = mockProduto();
 
-        ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse.converter(mockProduto);
+        ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse.converterProdutoParaModel(mockProduto);
 
         assertNotNull(produtoModelResponse);
         assertAll(
@@ -41,14 +41,8 @@ class ProdutoEntryPointMapperResponseTest {
         assertAll(
                 () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",produtoModelResponse.get(0).getIdProduto()),
                 () -> assertEquals("shampoo",produtoModelResponse.get(0).getNomeProduto()),
-                () -> assertEquals("brilho intenso", produtoModelResponse.get(0).getDescricaoProduto()),
                 () -> assertEquals("Kerastase", produtoModelResponse.get(0).getMarcaProduto()),
-                () -> assertEquals(120.0, produtoModelResponse.get(0).getPrecoProduto()),
-                () -> assertEquals("22/05/2018", produtoModelResponse.get(0).getDataCadastro()),
-                () -> assertEquals("23/06/2019", produtoModelResponse.get(0).getDataAtualizacao()),
-                () -> assertTrue(produtoModelResponse.get(0).getAtivoProduto()),
-                () -> assertFalse(produtoModelResponse.get(0).getOfertadoProduto()),
-                () -> assertEquals(0, produtoModelResponse.get(0).getPorcentagemOferta())
+                () -> assertEquals(120.0, produtoModelResponse.get(0).getPrecoProduto())
         );
     }
 
@@ -66,5 +60,4 @@ class ProdutoEntryPointMapperResponseTest {
                 .porcentagemOferta(0)
                 .build();
     }
-
 }

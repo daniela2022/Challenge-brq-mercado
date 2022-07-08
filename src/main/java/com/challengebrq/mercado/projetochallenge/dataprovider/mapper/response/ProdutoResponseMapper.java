@@ -3,8 +3,8 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.mapper.response;
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProdutoResponseMapper {
 
@@ -23,19 +23,12 @@ public class ProdutoResponseMapper {
                 .build();
     }
 
-    public static Produto converterLista(ProdutoEntity produtoEntity){
-        return Produto.builder()
-                .id(produtoEntity.getIdProduto())
-                .nome(produtoEntity.getNomeProduto())
-                .marca(produtoEntity.getMarcaProduto())
-                .preco(produtoEntity.getPrecoProduto())
-                .build();
-    }
+    public static List<Produto> convert(List<ProdutoEntity> produtos){
+        List<Produto> produtosModelResponse = new ArrayList<>();
 
-    public static List<Produto> convert(List<ProdutoEntity> produtoEntities){
-        return produtoEntities.stream()
-                .map(ProdutoResponseMapper::converterLista)
-                .collect(Collectors.toList());
+        produtos.forEach(produto -> {
+            produtosModelResponse.add(converter((produto)));
+        });
+        return produtosModelResponse;
     }
-
 }

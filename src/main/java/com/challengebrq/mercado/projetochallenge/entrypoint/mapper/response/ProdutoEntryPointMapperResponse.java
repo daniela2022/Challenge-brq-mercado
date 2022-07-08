@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ProdutoEntryPointMapperResponse {
 
-    public static ProdutoModelResponse converter(Produto produto){
+    public static ProdutoModelResponse converterProdutoParaModel(Produto produto){
         return ProdutoModelResponse.builder()
                 .idProduto(produto.getId())
                 .nomeProduto(produto.getNome())
@@ -25,13 +25,21 @@ public class ProdutoEntryPointMapperResponse {
                 .build();
     }
 
+    public static ProdutoModelResponse converterLista(Produto produto){
+        return ProdutoModelResponse.builder()
+                .idProduto(produto.getId())
+                .nomeProduto(produto.getNome())
+                .marcaProduto(produto.getMarca())
+                .precoProduto(produto.getPreco())
+                .build();
+    }
+
     public static List<ProdutoModelResponse> convert(List<Produto> produtos){
         List<ProdutoModelResponse> produtosModelResponse = new ArrayList<>();
 
         produtos.forEach(produto -> {
-            produtosModelResponse.add(converter(produto));
+            produtosModelResponse.add(converterLista((produto)));
         });
         return produtosModelResponse;
     }
-
 }

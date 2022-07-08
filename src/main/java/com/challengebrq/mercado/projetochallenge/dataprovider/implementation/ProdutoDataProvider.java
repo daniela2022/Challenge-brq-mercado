@@ -39,7 +39,7 @@ public class ProdutoDataProvider implements ProdutoGateway {
     }
 
     @Override
-    public List<Produto> listarProdutos(Produto produto) {
+    public List<Produto> listarProdutos() {
         List<ProdutoEntity> produtos = produtoRepository.findAll();
         return ProdutoResponseMapper.convert(produtos);
     }

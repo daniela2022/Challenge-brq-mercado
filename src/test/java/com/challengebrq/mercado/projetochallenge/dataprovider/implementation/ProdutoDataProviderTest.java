@@ -3,14 +3,12 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.exceptions.CadastroException;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.ProdutoRepository;
-import com.challengebrq.mercado.projetochallenge.dataprovider.repository.filter.ProdutoFilter;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -128,11 +126,10 @@ class ProdutoDataProviderTest {
     @Test
     void testeListarProdutosSucesso() {
         var produtoResponse =  List.of(mockProdutoEntity());
-       var produtoRequest = mockProduto();
 
         given(produtoRepository.findAll()).willReturn(produtoResponse);
 
-        List<Produto> produtoDomain = produtoDataProvider.listarProdutos(produtoRequest);
+        List<Produto> produtoDomain = produtoDataProvider.listarProdutos();
 
         assertNotNull(produtoDomain);
         assertAll(
@@ -142,8 +139,6 @@ class ProdutoDataProviderTest {
                 () -> assertEquals(120.0, produtoDomain.get(0).getPreco())
         );
     }
-
-
 
     private ProdutoEntity mockProdutoEntity() {
         return ProdutoEntity.builder()

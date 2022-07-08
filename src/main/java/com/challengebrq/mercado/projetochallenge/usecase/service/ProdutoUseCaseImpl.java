@@ -35,9 +35,9 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
     }
 
     @Override
-    public List<Produto> listarProduto(Produto produto) {
+    public List<Produto> listarProduto() {
 
-        return produtoGateway.listarProdutos(produto);
+        return produtoGateway.listarProdutos();
     }
 
     @Override

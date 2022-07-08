@@ -1,6 +1,5 @@
 package com.challengebrq.mercado.projetochallenge.usecase.service;
 
-import com.challengebrq.mercado.projetochallenge.dataprovider.exceptions.CadastroException;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.DuplicidadeNomeException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
@@ -99,12 +98,11 @@ class ProdutoUseCaseImplTest {
 
     @Test
     void testeListarProduto() {
-        var produtoParaSerCriado = mockProdutoResquestLista();
         var produtoCriado = mockProdutoResponse();
 
-        given(produtoGateway.listarProdutos(produtoParaSerCriado)).willReturn(List.of(produtoCriado));
+        given(produtoGateway.listarProdutos()).willReturn(List.of(produtoCriado));
 
-        List<Produto> produto = produtoUseCase.listarProduto(produtoParaSerCriado);
+        List<Produto> produto = produtoUseCase.listarProduto();
 
         assertNotNull(produto);
         assertAll(
@@ -140,7 +138,6 @@ class ProdutoUseCaseImplTest {
 
     @Test
     void testeDetalharProdutoPorIdNulo() {
-        Produto produtoParaSerCriado = mockProdutoRequestId(null);
 
         assertThrows(EntidadeNaoEncontradaException.class, () -> produtoUseCase.detalharProdutoPorId(null));
     }
@@ -154,16 +151,6 @@ class ProdutoUseCaseImplTest {
     private Produto mockProdutoRequest(Double preco) {
         return Produto.builder()
                 .preco(preco)
-                .build();
-    }
-
-    private Produto mockProdutoResquestLista() {
-        return Produto.builder()
-                .id("3322c422-a336-4064-96b3-2fc39ea4a108")
-                .nome("shampoo")
-                .marca("Kerastase")
-                .preco(50.0)
-                .descricao("brilho")
                 .build();
     }
 
