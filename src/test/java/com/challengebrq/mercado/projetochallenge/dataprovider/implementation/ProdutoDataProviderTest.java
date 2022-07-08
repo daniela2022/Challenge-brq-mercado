@@ -16,6 +16,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 class ProdutoDataProviderTest {
@@ -99,17 +101,8 @@ class ProdutoDataProviderTest {
 
         assertTrue(produto.isPresent());
         assertAll(
-                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produto.get().getId()),
-                () -> assertEquals("shampoo", produto.get().getNome()),
-                () -> assertEquals("brilho intenso", produto.get().getDescricao()),
-                () -> assertEquals("Kerastase", produto.get().getMarca()),
-                () -> assertEquals(120.0, produto.get().getPreco()),
-                () -> assertEquals("05/05/2017", produto.get().getDataCadastro()),
-                () -> assertEquals("06/07/2018", produto.get().getDataAtualizacao()),
-                () -> assertTrue(produto.get().getAtivo()),
-                () -> assertFalse(produto.get().getOfertado()),
-                () -> assertEquals(0, produto.get().getPorcentagemOferta()
-                ));
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produto.get().getId())
+                );
     }
 
     @Test
@@ -138,6 +131,14 @@ class ProdutoDataProviderTest {
                 () -> assertEquals("Kerastase", produtoDomain.get(0).getMarca()),
                 () -> assertEquals(120.0, produtoDomain.get(0).getPreco())
         );
+    }
+
+    @Test
+    void testeDeletarProdutoPorId(){
+        Produto produtoRequest = mockProduto();
+       produtoDataProvider.deletarProdutoPorId(produtoRequest.getId());
+
+        verify(produtoRepository, times(1)).deleteById(produtoRequest.getId());
     }
 
     private ProdutoEntity mockProdutoEntity() {

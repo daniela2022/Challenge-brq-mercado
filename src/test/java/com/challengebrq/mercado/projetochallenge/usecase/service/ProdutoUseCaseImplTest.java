@@ -4,6 +4,7 @@ import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.DuplicidadeNomeException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.PrecoException;
+import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoAtivoException;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 class ProdutoUseCaseImplTest {
@@ -124,15 +126,7 @@ class ProdutoUseCaseImplTest {
 
         assertNotNull(produto);
         assertAll(
-                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produto.getId()),
-                () -> assertEquals("shampoo", produto.getNome()),
-                () -> assertEquals("Kerastase", produto.getMarca()),
-                () -> assertEquals("brilho intenso", produto.getDescricao()),
-                () -> assertEquals(50, produto.getPreco()),
-                () -> assertEquals("15/05/2021", produto.getDataCadastro()),
-                () -> assertTrue(produto.getAtivo()),
-                () -> assertFalse(produto.getOfertado()),
-                () -> assertEquals(0, produto.getPorcentagemOferta())
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produto.getId())
         );
     }
 
@@ -140,6 +134,30 @@ class ProdutoUseCaseImplTest {
     void testeDetalharProdutoPorIdNulo() {
 
         assertThrows(EntidadeNaoEncontradaException.class, () -> produtoUseCase.detalharProdutoPorId(null));
+    }
+
+    @Test
+    void testeDeletarProdutoPorId() {
+        var produtoCriado = mockProdutoRequestId(false);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+
+        produtoUseCase.deletarProduto(produtoCriado.getId());
+
+        verify(produtoGateway, times(1)).deletarProdutoPorId(produtoCriado.getId());
+    }
+
+    @Test
+    void testeDeletarProdutoPorIdNulo() {
+
+        assertThrows(EntidadeNaoEncontradaException.class, () -> produtoUseCase.deletarProduto(null));
+    }
+
+    @Test
+    void testeDeletarProdutoAtivo() {
+        var produtoCriado = mockProdutoRequestId(true);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+
+        assertThrows(ProdutoAtivoException.class, () -> produtoUseCase.deletarProduto(produtoCriado.getId()));
     }
 
     private Produto mockProdutoRequestData(String data) {
@@ -154,17 +172,10 @@ class ProdutoUseCaseImplTest {
                 .build();
     }
 
-    private Produto mockProdutoRequestId(String idProduto) {
+    private Produto mockProdutoRequestId(Boolean ativo) {
         return Produto.builder()
-                .id(idProduto)
-                .nome("shampoo")
-                .descricao("brilho intenso")
-                .marca("Kerastase")
-                .preco(50.0)
-                .dataCadastro("15/05/2021")
-                .ofertado(false)
-                .ativo(true)
-                .porcentagemOferta(0)
+                .id("12345")
+                .ativo(ativo)
                 .build();
     }
 
