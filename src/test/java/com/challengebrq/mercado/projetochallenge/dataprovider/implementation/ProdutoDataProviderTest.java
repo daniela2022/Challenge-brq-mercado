@@ -141,6 +141,30 @@ class ProdutoDataProviderTest {
         verify(produtoRepository, times(1)).deleteById(produtoRequest.getId());
     }
 
+    @Test
+    void testeAtualizarProduto(){
+        ProdutoEntity produtoResponse = mockProdutoEntity();
+        Produto produtoRequest = mockProduto();
+
+        given(produtoRepository.save(Mockito.any())).willReturn(produtoResponse);
+
+        Produto produtoDomain = produtoDataProvider.atualizarParcialProduto(produtoRequest);
+
+        assertNotNull(produtoDomain);
+        assertAll(
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produtoDomain.getId()),
+                () -> assertEquals("shampoo", produtoDomain.getNome()),
+                () -> assertEquals("brilho intenso", produtoDomain.getDescricao()),
+                () -> assertEquals("Kerastase", produtoDomain.getMarca()),
+                () -> assertEquals(120.0, produtoDomain.getPreco()),
+                () -> assertEquals("05/05/2017", produtoDomain.getDataCadastro()),
+                () -> assertEquals("06/07/2018", produtoDomain.getDataAtualizacao()),
+                () -> assertTrue(produtoDomain.getAtivo()),
+                () -> assertFalse(produtoDomain.getOfertado()),
+                () -> assertEquals(0, produtoDomain.getPorcentagemOferta())
+        );
+    }
+
     private ProdutoEntity mockProdutoEntity() {
         return ProdutoEntity.builder()
                 .idProduto("3322c422-a336-4064-96b3-2fc39ea4a108")

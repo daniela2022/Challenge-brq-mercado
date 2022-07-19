@@ -3,7 +3,9 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.entity;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
 @Builder

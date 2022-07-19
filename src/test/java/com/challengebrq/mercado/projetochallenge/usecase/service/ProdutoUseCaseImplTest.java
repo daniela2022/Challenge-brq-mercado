@@ -1,10 +1,7 @@
 package com.challengebrq.mercado.projetochallenge.usecase.service;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.DuplicidadeNomeException;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.PrecoException;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoAtivoException;
+import com.challengebrq.mercado.projetochallenge.usecase.exceptions.*;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,7 +43,7 @@ class ProdutoUseCaseImplTest {
                 () -> assertEquals(50, produto.getPreco()),
                 () -> assertTrue(produto.getAtivo()),
                 () -> assertFalse(produto.getOfertado()),
-                () -> assertEquals(0, produto.getPorcentagemOferta())
+                 () -> assertEquals(0, produto.getPorcentagemOferta())
         );
     }
 
@@ -160,6 +157,114 @@ class ProdutoUseCaseImplTest {
         assertThrows(ProdutoAtivoException.class, () -> produtoUseCase.deletarProduto(produtoCriado.getId()));
     }
 
+    @Test
+    void testeAtualizarProdutoSucesso(){
+        var produtoCriado = mockProdutoOfertado(true, true, 10);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+        when(produtoGateway.atualizarParcialProduto(produtoCriado)).thenReturn(produtoCriado);
+
+        Produto produtoAtual = produtoUseCase.atualizarParcialProduto(produtoCriado);
+
+        assertNotNull(produtoAtual);
+        assertAll(
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produtoAtual.getId()),
+                () -> assertEquals("shampoo", produtoAtual.getNome()),
+                () -> assertEquals("brilho intenso", produtoAtual.getDescricao()),
+                () -> assertEquals("Kerastase", produtoAtual.getMarca()),
+                () -> assertEquals(50, produtoAtual.getPreco()),
+                () -> assertTrue(produtoAtual.getAtivo()),
+                () -> assertTrue(produtoAtual.getOfertado()),
+                () -> assertEquals(10, produtoAtual.getPorcentagemOferta())
+        );
+    }
+
+    @Test
+    void testeAtualizarValidacaoPorcentagemOfertaMenorZero(){
+        var produtoCriado = mockProdutoOfertado(true, true, 0);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+
+        assertThrows(ProdutoOfertadoMenorZero.class, () -> produtoUseCase.atualizarParcialProduto(produtoCriado));
+    }
+
+    @Test
+    void testeAtualizarProdutoInativo(){
+        var produtoCriado = mockProdutoOfertado(false, true, 10);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+        when(produtoGateway.atualizarParcialProduto(produtoCriado)).thenReturn(produtoCriado);
+
+        Produto produtoAtual = produtoUseCase.atualizarParcialProduto(produtoCriado);
+
+        assertNotNull(produtoAtual);
+        assertAll(
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108", produtoAtual.getId()),
+                () -> assertEquals("shampoo", produtoAtual.getNome()),
+                () -> assertEquals("brilho intenso", produtoAtual.getDescricao()),
+                () -> assertEquals("Kerastase", produtoAtual.getMarca()),
+                () -> assertEquals(50, produtoAtual.getPreco()),
+                () -> assertFalse(produtoAtual.getAtivo()),
+                () -> assertFalse(produtoAtual.getOfertado()),
+                () -> assertEquals(0, produtoAtual.getPorcentagemOferta())
+        );
+    }
+
+    @Test
+    void testeAtualizarOfertadoNulo(){
+        var produtoAtual = mockProdutoAtualOfertado(true,null,0);
+        var produtoCriado = mockProdutoOfertadoNulo(true,false,0);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+        when(produtoGateway.atualizarParcialProduto(produtoCriado)).thenReturn(produtoCriado);
+
+        Produto produto = produtoUseCase.atualizarParcialProduto(produtoAtual);
+
+        assertNotNull(produto);
+        assertAll(
+                () -> assertTrue(produto.getAtivo()),
+                () -> assertFalse(produto.getOfertado()),
+                () -> assertEquals(0, produto.getPorcentagemOferta())
+        );
+    }
+
+    @Test
+    void testeAtualizarPorcentagemNulaOfertadoFalse(){
+        var produtoAtual = mockProdutoAtualOfertado(true,false,null);
+        var produtoCriado = mockProdutoOfertadoNulo(true,false,0);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+        when(produtoGateway.atualizarParcialProduto(produtoCriado)).thenReturn(produtoCriado);
+
+        Produto produto = produtoUseCase.atualizarParcialProduto(produtoAtual);
+
+        assertNotNull(produto);
+        assertAll(
+                () -> assertTrue(produto.getAtivo()),
+                () -> assertFalse(produto.getOfertado()),
+                () -> assertEquals(0, produto.getPorcentagemOferta())
+        );
+    }
+
+    @Test
+    void testeAtualizarProdutoPorcentagemNulaOfertadoTrue(){
+        var produtoCriado = mockProdutoOfertado(true, true, null);
+        when(produtoGateway.detalharProdutoPorId(produtoCriado.getId())).thenReturn(Optional.of(produtoCriado));
+
+        assertThrows(ProdutoPorcentagemNulo.class, () -> produtoUseCase.atualizarParcialProduto(produtoCriado));
+    }
+
+    private Produto mockProdutoOfertadoNulo(Boolean produtoAtivo, Boolean produtoOfertado, Integer porcentagemOferta) {
+        return Produto.builder()
+                .ativo(produtoAtivo)
+                .ofertado(produtoOfertado)
+                .porcentagemOferta(porcentagemOferta)
+                .build();
+    }
+
+    private Produto mockProdutoAtualOfertado(Boolean produtoAtivo, Boolean produtoOfertado, Integer porcentagemOferta) {
+        return Produto.builder()
+                .ativo(produtoAtivo)
+                .ofertado(produtoOfertado)
+                .porcentagemOferta(porcentagemOferta)
+                .build();
+    }
+
     private Produto mockProdutoRequestData(String data) {
         return Produto.builder()
                 .dataCadastro(data)
@@ -169,6 +274,19 @@ class ProdutoUseCaseImplTest {
     private Produto mockProdutoRequest(Double preco) {
         return Produto.builder()
                 .preco(preco)
+                .build();
+    }
+
+    private Produto mockProdutoOfertado(Boolean produtoAtivo, Boolean produtoOfertado, Integer porcentagemOferta ) {
+        return Produto.builder()
+                .id("3322c422-a336-4064-96b3-2fc39ea4a108")
+                .nome("shampoo")
+                .descricao("brilho intenso")
+                .marca("Kerastase")
+                .preco(50.0)
+                .ofertado(produtoOfertado)
+                .ativo(produtoAtivo)
+                .porcentagemOferta(porcentagemOferta)
                 .build();
     }
 

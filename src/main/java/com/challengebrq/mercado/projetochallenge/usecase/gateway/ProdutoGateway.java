@@ -16,4 +16,6 @@ public interface ProdutoGateway {
     Optional<Produto> detalharProdutoPorId(String id);
 
    void deletarProdutoPorId(String idProduto);
+
+   Produto atualizarParcialProduto(Produto produto);
 }

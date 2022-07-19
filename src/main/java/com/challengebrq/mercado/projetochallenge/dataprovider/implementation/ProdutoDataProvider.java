@@ -56,6 +56,14 @@ public class ProdutoDataProvider implements ProdutoGateway {
 
         produtoRepository.deleteById(idProduto);
     }
+
+    @Override
+    public Produto atualizarParcialProduto(Produto produto) {
+            ProdutoEntity produtoAtual = ProdutoRequestMapper.convert(produto);
+            ProdutoEntity produtoCadastrado = produtoRepository.save(produtoAtual);
+
+            return ProdutoResponseMapper.converter(produtoCadastrado);
+    }
 }
 
 

@@ -18,4 +18,21 @@ public class ProdutoRequestMapper {
                 .produtoPorcentagemOferta(produto.getPorcentagemOferta())
                 .build();
     }
+
+    public static ProdutoEntity convert(Produto produto) {
+        return ProdutoEntity.builder()
+                .idProduto(produto.getId())
+                .nomeProduto(produto.getNome())
+                .descricaoProduto(produto.getDescricao())
+                .marcaProduto(produto.getMarca())
+                .precoProduto(produto.getPreco())
+                .dataCadastro(produto.getDataCadastro())
+                .dataAtualizacao(produto.getDataAtualizacao())
+                .produtoAtivo(produto.getAtivo())
+                .produtoOfertado(produto.getOfertado())
+                .produtoPorcentagemOferta(produto.getPorcentagemOferta())
+                .build();
+    }
+
+
 }

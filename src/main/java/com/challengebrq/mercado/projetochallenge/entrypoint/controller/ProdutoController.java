@@ -3,6 +3,7 @@ package com.challengebrq.mercado.projetochallenge.entrypoint.controller;
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request.ProdutoEntryPointMapperRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.response.ProdutoEntryPointMapperResponse;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequest;
+import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequestAtualizar;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.ProdutoModelResponse;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.service.ProdutoUseCase;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -72,6 +74,26 @@ public class ProdutoController {
         produtoUseCase.deletarProduto(idProduto);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{idProduto}")
+    public ResponseEntity<ProdutoModelResponse> atualizarProduto(
+            @PathVariable(value = "idProduto") String idProduto,
+             @RequestBody @Valid ProdutoModelRequestAtualizar produtoModelRequestAtualizar) {
+
+        Produto produtoRequestDomain = ProdutoEntryPointMapperRequest.convert(idProduto,produtoModelRequestAtualizar);
+        Produto produtoResponseDomain = produtoUseCase.atualizarParcialProduto(produtoRequestDomain);
+
+        ProdutoModelResponse produtoModelResponse = ProdutoEntryPointMapperResponse
+                .converterProdutoParaModel(produtoResponseDomain);
+
+        if (produtoModelResponse.getIdProduto().isEmpty()) {
+            ResponseEntity.notFound().build();
+
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(produtoModelResponse, HttpStatus.OK);
     }
 }
 
