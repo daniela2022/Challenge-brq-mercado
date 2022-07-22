@@ -5,7 +5,9 @@ import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class ProdutoEntryPointMapperResponse {
@@ -33,6 +35,15 @@ public class ProdutoEntryPointMapperResponse {
                 .precoProduto(produto.getPreco())
                 .build();
     }
+
+//    public static List<ProdutoModelResponse> convert (List<Produto> produtos){
+//        if(produtos.isEmpty()){
+//            return Collections.emptyList();
+//        }
+//        return produtos.stream()
+//                .map(ProdutoEntryPointMapperResponse::converterLista)
+//                .collect(Collectors.toList());
+//    }
 
     public static List<ProdutoModelResponse> convert(List<Produto> produtos){
         List<ProdutoModelResponse> produtosModelResponse = new ArrayList<>();
