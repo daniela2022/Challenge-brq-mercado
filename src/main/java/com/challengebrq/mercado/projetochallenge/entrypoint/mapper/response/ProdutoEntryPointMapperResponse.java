@@ -34,6 +34,13 @@ public class ProdutoEntryPointMapperResponse {
                 .build();
     }
 
+    public static ProdutoModelResponse converterOferta(Produto produto){
+        return ProdutoModelResponse.builder()
+                .idProduto(produto.getId())
+                .porcentagemOferta(produto.getPorcentagemOferta())
+                .build();
+    }
+
     public static List<ProdutoModelResponse> convert(List<Produto> produtos){
         List<ProdutoModelResponse> produtosModelResponse = new ArrayList<>();
 
@@ -42,4 +49,7 @@ public class ProdutoEntryPointMapperResponse {
         });
         return produtosModelResponse;
     }
+
+
+
 }

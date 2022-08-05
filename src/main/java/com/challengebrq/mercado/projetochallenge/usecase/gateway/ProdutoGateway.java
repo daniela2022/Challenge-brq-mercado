@@ -1,5 +1,6 @@
 package com.challengebrq.mercado.projetochallenge.usecase.gateway;
 
+import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface ProdutoGateway {
    void deletarProdutoPorId(String idProduto);
 
    Produto atualizarParcialProduto(Produto produto);
+
+   void atualizarOferta(Produto produto);
 }

@@ -4,15 +4,11 @@ import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 
 import java.util.List;
 
-public interface ProdutoUseCase {
+public interface OfertaUseCase {
 
-    Produto criarProduto(Produto produto);
-
-    List<Produto> listarProduto();
+    void atualizarOferta(List<Produto> produtos);
 
     Produto detalharProdutoPorId(String idProduto);
 
-    void deletarProduto(String idProduto);
-
-    Produto atualizarParcialProduto(Produto produto);
+    List<Produto> listarOferta();
 }

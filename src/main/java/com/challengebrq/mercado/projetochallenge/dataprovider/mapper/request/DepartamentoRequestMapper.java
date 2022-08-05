@@ -8,7 +8,7 @@ public class DepartamentoRequestMapper {
     public static DepartamentoEntity convert (Departamento departamento) {
         return DepartamentoEntity.builder()
                 .idDepartamento(departamento.getId())
-                .nomeDepartamento(departamento.getNome())
+                .nome(departamento.getNome())
                 .descricaoDepartamento(departamento.getDescricao())
                 .build();
     }

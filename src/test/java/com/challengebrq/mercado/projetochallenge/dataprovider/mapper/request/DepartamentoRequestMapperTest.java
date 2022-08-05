@@ -17,7 +17,7 @@ class DepartamentoRequestMapperTest {
         assertNotNull(departamentoEntity);
         assertAll(
                 () -> assertEquals(2L, departamentoEntity.getIdDepartamento()),
-                () -> assertEquals("shampoo", departamentoEntity.getNomeDepartamento()),
+                () -> assertEquals("shampoo", departamentoEntity.getNome()),
                 () -> assertEquals("shampoo para cabelos coloridos", departamentoEntity.getDescricaoDepartamento())
         );
     }

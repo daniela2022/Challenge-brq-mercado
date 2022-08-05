@@ -4,6 +4,8 @@ import com.challengebrq.mercado.projetochallenge.dataprovider.entity.Departament
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DepartamentoResponseMapperTest {
@@ -22,10 +24,24 @@ class DepartamentoResponseMapperTest {
         );
     }
 
+    @Test
+    void testeConverteListaResponseSucesso(){
+        var mockDepartamento = mockDepartamentoEntity();
+
+        List<Departamento> departamentos = DepartamentoResponseMapper.convert(List.of(mockDepartamentoEntity()));
+
+        assertNotNull(departamentos);
+        assertAll(
+                () -> assertEquals(2L,departamentos.get(0).getId()),
+                () -> assertEquals("shampoo",departamentos.get(0).getNome()),
+                () -> assertEquals("shampoo para cabelos coloridos", departamentos.get(0).getDescricao())
+        );
+    }
+
     private DepartamentoEntity mockDepartamentoEntity(){
         return DepartamentoEntity.builder()
                 .idDepartamento(2L)
-                .nomeDepartamento("shampoo")
+                .nome("shampoo")
                 .descricaoDepartamento("shampoo para cabelos coloridos")
                 .build();
     }

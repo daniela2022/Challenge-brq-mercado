@@ -4,6 +4,9 @@ import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.Depar
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 public class DepartamentoEntryPointResponseMapper {
 
@@ -14,4 +17,14 @@ public class DepartamentoEntryPointResponseMapper {
                 .descricaoDepartamento(departamento.getDescricao())
                 .build();
     }
+
+    public static List<DepartamentoModelResponse> convert(List<Departamento> departamentos){
+        List<DepartamentoModelResponse> departamentoModelResponse = new ArrayList<>();
+
+        departamentos.forEach(departamento -> {
+            departamentoModelResponse.add(converterDepartamentoParaModel((departamento)));
+        });
+        return departamentoModelResponse;
+    }
+
 }

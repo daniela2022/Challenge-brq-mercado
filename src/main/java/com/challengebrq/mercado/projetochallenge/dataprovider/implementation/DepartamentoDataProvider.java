@@ -10,6 +10,7 @@ import com.challengebrq.mercado.projetochallenge.usecase.gateway.DepartamentoGat
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -32,6 +33,25 @@ public class DepartamentoDataProvider implements DepartamentoGateway {
 
     @Override
     public Optional<Departamento> buscarDepartamentoPorNome(String nomeDepartamento) {
-        return departamentoRepository.findByNomeDepartamento(nomeDepartamento).map(DepartamentoResponseMapper::convert);
+        return departamentoRepository.findByNome(nomeDepartamento).map(DepartamentoResponseMapper::convert);
+    }
+
+    @Override
+    public List<Departamento> listarDepartamento(String nome) {
+        List<DepartamentoEntity> departamentos = departamentoRepository.findListar(nome);
+
+        return DepartamentoResponseMapper.convert(departamentos);
+    }
+
+    @Override
+    public Optional<Departamento> buscarDepartamentoPorId(Long id) {
+        return departamentoRepository.findById(id)
+                .map(DepartamentoResponseMapper::convert);
+    }
+
+    @Override
+    public void deletarDepartamentoPorId(Long idDepartamento) {
+
+        departamentoRepository.deleteById(idDepartamento);
     }
 }

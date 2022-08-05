@@ -1,10 +1,13 @@
 package com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request;
 
+import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.OfertaModelRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequestAtualizar;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @NoArgsConstructor
@@ -38,4 +41,5 @@ public class ProdutoEntryPointMapperRequest {
                 .porcentagemOferta(produtoModelRequestAtualizar.getPorcentagemOferta())
                 .build();
     }
+
 }

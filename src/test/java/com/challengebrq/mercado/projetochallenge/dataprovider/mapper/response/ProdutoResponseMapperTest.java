@@ -4,6 +4,8 @@ import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEnti
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProdutoResponseMapperTest {
@@ -26,6 +28,27 @@ class ProdutoResponseMapperTest {
                 () -> assertTrue(produto.getAtivo()),
                 () -> assertFalse(produto.getOfertado()),
                 () -> assertEquals(0, produto.getPorcentagemOferta())
+        );
+    }
+
+    @Test
+    void testeConverteListaResponseSucesso(){
+        var mockProduto = mockProdutoEntity();
+
+        List<Produto> produtos = ProdutoResponseMapper.convert(List.of(mockProduto));
+
+        assertNotNull(produtos);
+        assertAll(
+                () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",produtos.get(0).getId()),
+                () -> assertEquals("shampoo",produtos.get(0).getNome()),
+                () -> assertEquals("brilho intenso", produtos.get(0).getDescricao()),
+                () -> assertEquals("Kerastase", produtos.get(0).getMarca()),
+                () -> assertEquals(120.0, produtos.get(0).getPreco()),
+                () -> assertEquals("04/08/2005", produtos.get(0).getDataCadastro()),
+                () -> assertEquals("04/08/2006", produtos.get(0).getDataAtualizacao()),
+                () -> assertTrue(produtos.get(0).getAtivo()),
+                () -> assertFalse(produtos.get(0).getOfertado()),
+                () -> assertEquals(0, produtos.get(0).getPorcentagemOferta())
         );
     }
 

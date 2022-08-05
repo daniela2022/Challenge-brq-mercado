@@ -32,7 +32,6 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         return produtoGateway.criarProduto(produto);
     }
 
-
     @Override
     public List<Produto> listarProduto() {
 
@@ -94,6 +93,13 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         if (Objects.nonNull(produto.getOfertado())) {
             if ((produto.getOfertado() && produto.getPorcentagemOferta() == null)) {
                 throw new ProdutoPorcentagemNulo("A porcentagem oferta não pode ser nula");
+            }
+        }
+
+        if (Objects.nonNull(produto.getOfertado())) {
+            if(!produtoAtual.getOfertado() && produto.getAtivo()){
+                produtoAtual.setOfertado(produto.getOfertado());
+                produtoAtual.setPorcentagemOferta(produto.getPorcentagemOferta());
             }
         }
 

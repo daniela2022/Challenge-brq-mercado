@@ -1,6 +1,6 @@
 package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 
-import com.challengebrq.mercado.projetochallenge.dataprovider.entity.DepartamentoEntity;
+import  com.challengebrq.mercado.projetochallenge.dataprovider.entity.DepartamentoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.exceptions.CadastroException;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.DepartamentoRepository;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
@@ -11,11 +11,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
 class DepartamentoDataProviderTest {
@@ -57,10 +59,10 @@ class DepartamentoDataProviderTest {
     void testeBuscarDepartamentoPorNomeSucesso() {
         DepartamentoEntity departamentoRequest = mockDepartamentoEntity();
 
-        given(departamentoRepository.findByNomeDepartamento(departamentoRequest.getNomeDepartamento()))
+        given(departamentoRepository.findByNome(departamentoRequest.getNome()))
                 .willReturn(Optional.of(departamentoRequest));
 
-        Optional<Departamento> departamento = departamentoDataProvider.buscarDepartamentoPorNome(departamentoRequest.getNomeDepartamento());
+        Optional<Departamento> departamento = departamentoDataProvider.buscarDepartamentoPorNome(departamentoRequest.getNome());
 
         assertTrue(departamento.isPresent());
         assertAll(
@@ -70,11 +72,77 @@ class DepartamentoDataProviderTest {
         );
     }
 
+    @Test
+    void testeListarDepartamentosSucessoComNome() {
+        var departamentoResponse =  List.of(mockDepartamentoEntity());
+
+        given(departamentoRepository.findListar("Telefone")).willReturn(departamentoResponse);
+        given(departamentoRepository.findAll()).willReturn(departamentoResponse);
+
+        List<Departamento> departamentoDomain = departamentoDataProvider.listarDepartamento("Telefone");
+
+        assertNotNull(departamentoDomain);
+        assertAll(
+                () -> assertEquals(1L, departamentoDomain.get(0).getId()),
+                () -> assertEquals("Telefone", departamentoDomain.get(0).getNome()),
+                () -> assertEquals("Celular", departamentoDomain.get(0).getDescricao())
+        );
+    }
+
+    @Test
+    void testeListarDepartamentosSucessoComNomeVazio() {
+        var departamentoResponse =  List.of(mockDepartamentoEntity());
+
+        given(departamentoRepository.findListar(null)).willReturn(departamentoResponse);
+        given(departamentoRepository.findAll()).willReturn(departamentoResponse);
+
+        List<Departamento> departamentoDomain = departamentoDataProvider.listarDepartamento(null);
+
+        assertNotNull(departamentoDomain);
+        assertAll(
+                () -> assertEquals(1L, departamentoDomain.get(0).getId()),
+                () -> assertEquals("Telefone", departamentoDomain.get(0).getNome()),
+                () -> assertEquals("Celular", departamentoDomain.get(0).getDescricao())
+        );
+    }
+
+    @Test
+    void testebuscarDepartamentoPorIdSucesso() {
+        Departamento departamentoRequest = mockDepartamento();
+        DepartamentoEntity departamentoResponse = mockDepartamentoEntity();
+
+        given(departamentoRepository.findById(departamentoRequest.getId()))
+                .willReturn(Optional.of(departamentoResponse));
+
+        Optional<Departamento> departamento = departamentoDataProvider.buscarDepartamentoPorId(departamentoRequest.getId());
+
+        assertTrue(departamento.isPresent());
+        assertAll(
+                () -> assertEquals(1L, departamento.get().getId())
+        );
+    }
+
+    @Test
+    void testeDeletarDepartamentoPorId(){
+        var departamentoRequest = mockDepartamento();
+        departamentoDataProvider.deletarDepartamentoPorId(departamentoRequest.getId());
+
+        verify(departamentoRepository, times(1)).deleteById(departamentoRequest.getId());
+    }
+
     private DepartamentoEntity mockDepartamentoEntity() {
         return DepartamentoEntity.builder()
                 .idDepartamento(1L)
-                .nomeDepartamento("Telefone")
+                .nome("Telefone")
                 .descricaoDepartamento("Celular")
+                .build();
+    }
+
+    private Departamento mockDepartamento() {
+        return Departamento.builder()
+                .id(1L)
+                .nome("shampoo")
+                .descricao("shampoo para cabelos rebeldes")
                 .build();
     }
 

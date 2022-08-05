@@ -2,6 +2,7 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.exceptions.CadastroException;
+import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.OfertaRequestMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.ProdutoRequestMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.response.ProdutoResponseMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.ProdutoRepository;
@@ -9,6 +10,7 @@ import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +66,14 @@ public class ProdutoDataProvider implements ProdutoGateway {
 
             return ProdutoResponseMapper.converter(produtoCadastrado);
     }
+
+    @Transactional
+    @Override
+    public void atualizarOferta(Produto produto) {
+        ProdutoEntity produtoAtual = ProdutoRequestMapper.converter(produto);
+        produtoRepository.save(produtoAtual);
+    }
+
 }
 
 
