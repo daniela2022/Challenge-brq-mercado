@@ -2,10 +2,9 @@ package com.challengebrq.mercado.projetochallenge.entrypoint.controller;
 
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request.OfertaEntryPointMapperRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.response.OfertaEntryPointMapperResponse;
-import com.challengebrq.mercado.projetochallenge.entrypoint.mapper.response.ProdutoEntryPointMapperResponse;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.OfertaModelRequest;
+import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.OfertaModelRequestRemover;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.OfertaModelResponse;
-import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.ProdutoModelResponse;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.service.OfertaUseCase;
 import org.springframework.http.HttpStatus;
@@ -52,7 +51,14 @@ public class OfertaController {
         return new ResponseEntity<>(ofertaModelResponse, HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public ResponseEntity<?> deletarOferta(@RequestBody List<OfertaModelRequestRemover> ofertaModelRequestRemover) {
 
+        List<Produto> produtoRequestDomain = OfertaEntryPointMapperRequest.convertLista(ofertaModelRequestRemover);
 
+        ofertaUseCase.deletarOferta(produtoRequestDomain);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
 

@@ -11,4 +11,6 @@ public interface OfertaUseCase {
     Produto detalharProdutoPorId(String idProduto);
 
     List<Produto> listarOferta();
+
+    void deletarOferta(List<Produto> produtos);
 }

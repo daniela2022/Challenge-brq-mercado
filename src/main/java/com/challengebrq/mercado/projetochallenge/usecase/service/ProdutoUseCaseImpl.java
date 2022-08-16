@@ -60,7 +60,7 @@ public class ProdutoUseCaseImpl implements ProdutoUseCase {
         Produto produtoAtual = detalharProdutoPorId(produto.getId());
 
         if (StringUtils.isNotBlank(produto.getNome())) {
-            Optional<Produto> produtoPresente = produtoGateway.buscarProdutoPorNome(produto.getNome());
+            Optional<Produto> produtoPresente =  produtoGateway.buscarProdutoPorNome(produto.getNome());
             if (produtoPresente.isPresent() && !StringUtils.equalsIgnoreCase(produtoAtual.getId(), produto.getId())) {
                 validarDuplicidadeNomeProduto(produto);
             }

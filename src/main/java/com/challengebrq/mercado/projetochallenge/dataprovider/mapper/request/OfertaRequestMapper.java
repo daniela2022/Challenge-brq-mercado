@@ -15,6 +15,7 @@ public class OfertaRequestMapper {
                 .build();
     }
 
+
     public static List<ProdutoEntity> convert(List<Produto> produtos){
         List<ProdutoEntity> produtosModelResponse = new ArrayList<>();
 

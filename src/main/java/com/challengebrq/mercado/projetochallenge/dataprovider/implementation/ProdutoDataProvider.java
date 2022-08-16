@@ -2,7 +2,6 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.exceptions.CadastroException;
-import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.OfertaRequestMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.ProdutoRequestMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.response.ProdutoResponseMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.ProdutoRepository;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@AllArgsConstructor
+@AllArgsConstructor 
 public class ProdutoDataProvider implements ProdutoGateway {
 
     private final ProdutoRepository produtoRepository;
@@ -65,13 +64,6 @@ public class ProdutoDataProvider implements ProdutoGateway {
             ProdutoEntity produtoCadastrado = produtoRepository.save(produtoAtual);
 
             return ProdutoResponseMapper.converter(produtoCadastrado);
-    }
-
-    @Transactional
-    @Override
-    public void atualizarOferta(Produto produto) {
-        ProdutoEntity produtoAtual = ProdutoRequestMapper.converter(produto);
-        produtoRepository.save(produtoAtual);
     }
 
 }

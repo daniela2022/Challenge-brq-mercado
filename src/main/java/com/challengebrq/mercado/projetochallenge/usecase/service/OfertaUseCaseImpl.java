@@ -2,8 +2,9 @@ package com.challengebrq.mercado.projetochallenge.usecase.service;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.PrecoException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoAtivoException;
+import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoOfertadoMenorZero;
+import com.challengebrq.mercado.projetochallenge.usecase.gateway.OfertaGateway;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,14 @@ import java.util.Objects;
 @Service
 public class OfertaUseCaseImpl implements OfertaUseCase{
 
+    private final OfertaGateway ofertaGateway;
     private final ProdutoGateway produtoGateway;
 
-    public OfertaUseCaseImpl(ProdutoGateway produtoGateway) {
+    public OfertaUseCaseImpl(OfertaGateway ofertaGateway, ProdutoGateway produtoGateway) {
+        this.ofertaGateway = ofertaGateway;
         this.produtoGateway = produtoGateway;
     }
+
 
     @Override
     public Produto detalharProdutoPorId(String idProduto) {
@@ -31,7 +35,24 @@ public class OfertaUseCaseImpl implements OfertaUseCase{
 
     @Override
     public List<Produto> listarOferta() {
-        return produtoGateway.listarProdutos();
+        return ofertaGateway.listarOfertas();
+    }
+
+    @Override
+    public void deletarOferta(List<Produto> produtos) {
+
+        for(Produto produto : produtos) {
+            Produto produtoAtual = detalharProdutoPorId(produto.getId());
+
+
+            if(Objects.nonNull(produtoAtual.getOfertado())){
+                if(produtoAtual.getOfertado()){
+                    produtoAtual.setOfertado(false);
+                    produtoAtual.setPorcentagemOferta(0);
+                }
+            }
+            ofertaGateway.deletarOferta(produtoAtual);
+        }
     }
 
     @Override
@@ -59,14 +80,14 @@ public class OfertaUseCaseImpl implements OfertaUseCase{
             }
 
             produtoAtual.setDataAtualizacao(getData());
-            produtoGateway.atualizarOferta(produtoAtual);
+            ofertaGateway.atualizarOferta(produtoAtual);
         }
 
     }
 
     private void validarPorcentagemZeradoOuNegativo(Produto produtoRequest) {
         if (produtoRequest.getPorcentagemOferta() <= 0) {
-            throw new PrecoException(String.format("A porcentagem da oferta não pode ser menor que zero",
+            throw new ProdutoOfertadoMenorZero(String.format("A porcentagem da oferta não pode ser menor que zero",
                     produtoRequest.getPorcentagemOferta()));
         }
     }
