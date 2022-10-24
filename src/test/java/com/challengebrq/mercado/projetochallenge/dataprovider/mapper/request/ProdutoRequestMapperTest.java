@@ -4,6 +4,8 @@ import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEnti
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProdutoRequestMapperTest {
@@ -24,7 +26,8 @@ class ProdutoRequestMapperTest {
                 () -> assertEquals("12/12/1990", produtoEntity.getDataCadastro()),
                 () -> assertTrue(produtoEntity.getProdutoAtivo()),
                 () -> assertFalse(produtoEntity.getProdutoOfertado()),
-                () -> assertEquals(0, produtoEntity.getProdutoPorcentagemOferta())
+                () -> assertEquals(0, produtoEntity.getProdutoPorcentagemOferta()),
+                () -> assertEquals(List.of(), produtoEntity.getDepartamentos())
         );
     }
 
@@ -45,7 +48,8 @@ class ProdutoRequestMapperTest {
                 () -> assertEquals("14/05/2015", produtoEntity.getDataAtualizacao()),
                 () -> assertTrue(produtoEntity.getProdutoAtivo()),
                 () -> assertFalse(produtoEntity.getProdutoOfertado()),
-                () -> assertEquals(0, produtoEntity.getProdutoPorcentagemOferta())
+                () -> assertEquals(0, produtoEntity.getProdutoPorcentagemOferta()),
+                () -> assertEquals(List.of(), produtoEntity.getDepartamentos())
         );
     }
 
@@ -60,6 +64,7 @@ class ProdutoRequestMapperTest {
                 .ofertado(false)
                 .ativo(true)
                 .porcentagemOferta(0)
+                .departamentos(List.of())
                 .build();
     }
 
@@ -75,6 +80,7 @@ class ProdutoRequestMapperTest {
                 .ofertado(false)
                 .ativo(true)
                 .porcentagemOferta(0)
+                .departamentos(List.of())
                 .build();
     }
 }

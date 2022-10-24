@@ -38,7 +38,7 @@ class DepartamentoDataProviderTest {
 
         assertNotNull(departamentoDomain);
         assertAll(
-                () -> assertEquals(1L, departamentoDomain.getId()),
+                () -> assertEquals(1, departamentoDomain.getId()),
                 () -> assertEquals("Telefone", departamentoDomain.getNome()),
                 () -> assertEquals("Celular", departamentoDomain.getDescricao())
         );
@@ -66,7 +66,7 @@ class DepartamentoDataProviderTest {
 
         assertTrue(departamento.isPresent());
         assertAll(
-                () -> assertEquals(1L, departamento.get().getId()),
+                () -> assertEquals(1, departamento.get().getId()),
                 () -> assertEquals("Telefone", departamento.get().getNome()),
                 () -> assertEquals("Celular", departamento.get().getDescricao())
         );
@@ -83,7 +83,7 @@ class DepartamentoDataProviderTest {
 
         assertNotNull(departamentoDomain);
         assertAll(
-                () -> assertEquals(1L, departamentoDomain.get(0).getId()),
+                () -> assertEquals(1, departamentoDomain.get(0).getId()),
                 () -> assertEquals("Telefone", departamentoDomain.get(0).getNome()),
                 () -> assertEquals("Celular", departamentoDomain.get(0).getDescricao())
         );
@@ -100,7 +100,7 @@ class DepartamentoDataProviderTest {
 
         assertNotNull(departamentoDomain);
         assertAll(
-                () -> assertEquals(1L, departamentoDomain.get(0).getId()),
+                () -> assertEquals(1, departamentoDomain.get(0).getId()),
                 () -> assertEquals("Telefone", departamentoDomain.get(0).getNome()),
                 () -> assertEquals("Celular", departamentoDomain.get(0).getDescricao())
         );
@@ -118,7 +118,7 @@ class DepartamentoDataProviderTest {
 
         assertTrue(departamento.isPresent());
         assertAll(
-                () -> assertEquals(1L, departamento.get().getId())
+                () -> assertEquals(1, departamento.get().getId())
         );
     }
 
@@ -132,7 +132,7 @@ class DepartamentoDataProviderTest {
 
     private DepartamentoEntity mockDepartamentoEntity() {
         return DepartamentoEntity.builder()
-                .idDepartamento(1L)
+                .idDepartamento(1)
                 .nome("Telefone")
                 .descricaoDepartamento("Celular")
                 .build();
@@ -140,7 +140,7 @@ class DepartamentoDataProviderTest {
 
     private Departamento mockDepartamento() {
         return Departamento.builder()
-                .id(1L)
+                .id(1)
                 .nome("shampoo")
                 .descricao("shampoo para cabelos rebeldes")
                 .build();

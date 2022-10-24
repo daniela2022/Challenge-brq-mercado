@@ -7,6 +7,7 @@ import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.Produt
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.ProdutoModelResponse;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.service.ProdutoUseCase;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class ProdutoController {
 
     @PostMapping
     public ResponseEntity<ProdutoModelResponse> adicionarProduto(
-            @RequestBody ProdutoModelRequest produtoModelRequest) {
+            @RequestBody @Valid ProdutoModelRequest produtoModelRequest) {
 
         Produto produtoRequestDomain = ProdutoEntryPointMapperRequest.converter(produtoModelRequest);
         Produto produtoResponseDomain = produtoUseCase.criarProduto(produtoRequestDomain);
@@ -38,9 +39,13 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProdutoModelResponse>> listarProdutos() {
+    public ResponseEntity<List<ProdutoModelResponse>> listarProdutos(@RequestParam(value="nome", required=false)String nome,
+                                                                     @RequestParam(value="marca", required=false)String marca,
+                                                                     @RequestParam(value="preco", required=false)Double preco,
+                                                                     @RequestParam(value="departamento" , required=false) Integer departamento,
+                                                                     @RequestParam(value="ativo", required=false)Boolean ativo) {
 
-        List<Produto> produtoResponseDomain = produtoUseCase.listarProduto();
+        List<Produto> produtoResponseDomain = produtoUseCase.listarProduto(nome, marca, preco, departamento, ativo);
 
         List<ProdutoModelResponse> produtoModelResponse = ProdutoEntryPointMapperResponse.convert(produtoResponseDomain);
 

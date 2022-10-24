@@ -24,18 +24,18 @@ class OfertaEntryPointMapperRequestTest {
         );
     }
 
-    @Test
-    void testeConverteListaRequestSucesso(){
-        var mockOfertaModelRequest = mockProdutoModelRequest();
-
-        List<Produto> produtos = OfertaEntryPointMapperRequest.convert(List.of(mockOfertaModelRequest));
-
-        assertNotNull(produtos);
-        assertAll(
-                () -> assertEquals("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1",produtos.get(0).getId()),
-                () -> assertEquals(10, produtos.get(0).getPorcentagemOferta())
-        );
-    }
+//    @Test
+//    void testeConverteListaRequestSucesso(){
+//        var mockOfertaModelRequest = mockProdutoModelRequest();
+//
+//        List<Produto> produtos = OfertaEntryPointMapperRequest.convert(List.of(mockOfertaModelRequest));
+//
+//        assertNotNull(produtos);
+//        assertAll(
+//                () -> assertEquals("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1",produtos.get(0).getId()),
+//                () -> assertEquals(10, produtos.get(0).getPorcentagemOferta())
+//        );
+//    }
 
     @Test
     void testeConverteRequestDeleteSucesso(){
@@ -63,14 +63,14 @@ class OfertaEntryPointMapperRequestTest {
 
     private OfertaModelRequest mockProdutoModelRequest(){
         return OfertaModelRequest.builder()
-                .idProduto("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1")
+                .id("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1")
                 .porcentagemOferta(10)
                 .build();
     }
 
     private OfertaModelRequestRemover mockProdutoModelRequestRemover(){
         return OfertaModelRequestRemover.builder()
-                .idProduto("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1")
+                .id("f0ff7bcc-be58-4ea7-82a2-eb557ebb76a1")
                 .build();
     }
 

@@ -13,31 +13,27 @@ public class ProdutoEntryPointMapperResponse {
     public static ProdutoModelResponse converterProdutoParaModel(Produto produto){
         return ProdutoModelResponse.builder()
                 .idProduto(produto.getId())
-                .nomeProduto(produto.getNome())
-                .descricaoProduto(produto.getDescricao())
-                .marcaProduto(produto.getMarca())
-                .precoProduto(produto.getPreco())
+                .nome(produto.getNome())
+                .descricao(produto.getDescricao())
+                .marca(produto.getMarca())
+                .preco(produto.getPreco())
                 .dataCadastro(produto.getDataCadastro())
                 .dataAtualizacao(produto.getDataAtualizacao())
-                .ativoProduto(produto.getAtivo())
-                .ofertadoProduto(produto.getOfertado())
+                .ativo(produto.getAtivo())
+                .ofertado(produto.getOfertado())
                 .porcentagemOferta(produto.getPorcentagemOferta())
+                .departamentos(DepartamentoEntryPointResponseMapper.convertList(produto.getDepartamentos()))
                 .build();
     }
 
     public static ProdutoModelResponse converterLista(Produto produto){
         return ProdutoModelResponse.builder()
                 .idProduto(produto.getId())
-                .nomeProduto(produto.getNome())
-                .marcaProduto(produto.getMarca())
-                .precoProduto(produto.getPreco())
-                .build();
-    }
-
-    public static ProdutoModelResponse converterOferta(Produto produto){
-        return ProdutoModelResponse.builder()
-                .idProduto(produto.getId())
-                .porcentagemOferta(produto.getPorcentagemOferta())
+                .nome(produto.getNome())
+                .marca(produto.getMarca())
+                .preco(produto.getPreco())
+                .ativo(produto.getAtivo())
+                .departamentos(DepartamentoEntryPointResponseMapper.convertList(produto.getDepartamentos()))
                 .build();
     }
 

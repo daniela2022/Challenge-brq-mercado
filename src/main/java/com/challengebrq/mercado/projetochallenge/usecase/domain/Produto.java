@@ -2,6 +2,8 @@ package com.challengebrq.mercado.projetochallenge.usecase.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -19,4 +21,5 @@ public class Produto {
     private Boolean ativo;
     private Boolean ofertado;
     private Integer porcentagemOferta;
+    private List<Departamento> departamentos;
 }

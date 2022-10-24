@@ -16,6 +16,7 @@ public class ProdutoRequestMapper {
                 .produtoAtivo(produto.getAtivo())
                 .produtoOfertado(produto.getOfertado())
                 .produtoPorcentagemOferta(produto.getPorcentagemOferta())
+                .departamentos(DepartamentoRequestMapper.convertList(produto.getDepartamentos()))
                 .build();
     }
 
@@ -31,8 +32,8 @@ public class ProdutoRequestMapper {
                 .produtoAtivo(produto.getAtivo())
                 .produtoOfertado(produto.getOfertado())
                 .produtoPorcentagemOferta(produto.getPorcentagemOferta())
+                .departamentos(DepartamentoRequestMapper.convertLista(produto.getDepartamentos()))
                 .build();
     }
-
 
 }

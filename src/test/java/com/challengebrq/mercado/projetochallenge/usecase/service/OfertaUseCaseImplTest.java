@@ -2,7 +2,7 @@ package com.challengebrq.mercado.projetochallenge.usecase.service;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
-import com.challengebrq.mercado.projetochallenge.usecase.exceptions.PrecoException;
+import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoInexistenteException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.ProdutoOfertadoMenorZero;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.OfertaGateway;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.List.*;
+import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
@@ -50,7 +50,7 @@ class OfertaUseCaseImplTest {
     @Test
     void testeDetalharProdutoPorIdNulo() {
 
-        assertThrows(EntidadeNaoEncontradaException.class, () -> ofertaUseCase.detalharProdutoPorId(null));
+        assertThrows(ProdutoInexistenteException.class, () -> ofertaUseCase.detalharProdutoPorId(null));
     }
 
     @Test

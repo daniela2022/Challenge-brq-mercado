@@ -1,9 +1,7 @@
 package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
-import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.OfertaRequestMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.request.ProdutoRequestMapper;
-import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.response.OfertaResponseMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.mapper.response.ProdutoResponseMapper;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.OfertaRepository;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
@@ -23,7 +21,7 @@ public class OfertaDataProvider implements OfertaGateway {
     @Transactional
     @Override
     public void atualizarOferta(Produto produto) {
-        ProdutoEntity produtoAtual = ProdutoRequestMapper.converter(produto);
+        ProdutoEntity produtoAtual = ProdutoRequestMapper.convert(produto);
         ofertaRepository.save(produtoAtual);
     }
 
@@ -33,6 +31,7 @@ public class OfertaDataProvider implements OfertaGateway {
         return ProdutoResponseMapper.convert(produtos);
     }
 
+    @Transactional
     @Override
     public void deletarOferta(Produto produto) {
         ProdutoEntity produtoAtual = ProdutoRequestMapper.converter(produto);

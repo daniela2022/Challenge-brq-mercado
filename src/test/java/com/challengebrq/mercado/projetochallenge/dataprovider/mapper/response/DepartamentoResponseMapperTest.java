@@ -18,7 +18,7 @@ class DepartamentoResponseMapperTest {
 
         assertNotNull(departamento);
         assertAll(
-                () -> assertEquals(2L,departamento.getId()),
+                () -> assertEquals(2,departamento.getId()),
                 () -> assertEquals("shampoo",departamento.getNome()),
                 () -> assertEquals("shampoo para cabelos coloridos", departamento.getDescricao())
         );
@@ -32,7 +32,7 @@ class DepartamentoResponseMapperTest {
 
         assertNotNull(departamentos);
         assertAll(
-                () -> assertEquals(2L,departamentos.get(0).getId()),
+                () -> assertEquals(2,departamentos.get(0).getId()),
                 () -> assertEquals("shampoo",departamentos.get(0).getNome()),
                 () -> assertEquals("shampoo para cabelos coloridos", departamentos.get(0).getDescricao())
         );
@@ -40,7 +40,7 @@ class DepartamentoResponseMapperTest {
 
     private DepartamentoEntity mockDepartamentoEntity(){
         return DepartamentoEntity.builder()
-                .idDepartamento(2L)
+                .idDepartamento(2)
                 .nome("shampoo")
                 .descricaoDepartamento("shampoo para cabelos coloridos")
                 .build();

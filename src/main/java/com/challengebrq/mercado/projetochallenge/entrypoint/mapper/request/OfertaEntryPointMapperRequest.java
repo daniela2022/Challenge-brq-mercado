@@ -11,14 +11,14 @@ public class OfertaEntryPointMapperRequest {
 
     public static Produto converter(OfertaModelRequest ofertaModelRequest) {
         return Produto.builder()
-                .id(ofertaModelRequest.getIdProduto())
+                .id(ofertaModelRequest.getId())
                 .porcentagemOferta(ofertaModelRequest.getPorcentagemOferta())
                 .build();
     }
 
     public static Produto converterDelete(OfertaModelRequestRemover ofertaModelRequest){
         return Produto.builder()
-                .id(ofertaModelRequest.getIdProduto())
+                .id(ofertaModelRequest.getId())
                 .build();
     }
 
@@ -30,8 +30,6 @@ public class OfertaEntryPointMapperRequest {
         });
         return produtos;
     }
-
-
 
     public static List<Produto> convert(List<OfertaModelRequest> ofertas){
         List<Produto> produtos = new ArrayList<>();

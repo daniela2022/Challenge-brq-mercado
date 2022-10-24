@@ -27,7 +27,8 @@ class ProdutoResponseMapperTest {
                 () -> assertEquals("04/08/2006", produto.getDataAtualizacao()),
                 () -> assertTrue(produto.getAtivo()),
                 () -> assertFalse(produto.getOfertado()),
-                () -> assertEquals(0, produto.getPorcentagemOferta())
+                () -> assertEquals(0, produto.getPorcentagemOferta()),
+                () -> assertEquals(List.of(), produto.getDepartamentos())
         );
     }
 
@@ -48,7 +49,8 @@ class ProdutoResponseMapperTest {
                 () -> assertEquals("04/08/2006", produtos.get(0).getDataAtualizacao()),
                 () -> assertTrue(produtos.get(0).getAtivo()),
                 () -> assertFalse(produtos.get(0).getOfertado()),
-                () -> assertEquals(0, produtos.get(0).getPorcentagemOferta())
+                () -> assertEquals(0, produtos.get(0).getPorcentagemOferta()),
+                () -> assertEquals(List.of(), produtos.get(0).getDepartamentos())
         );
     }
 
@@ -64,6 +66,7 @@ class ProdutoResponseMapperTest {
                 .produtoOfertado(false)
                 .produtoAtivo(true)
                 .produtoPorcentagemOferta(0)
+                .departamentos(List.of())
                 .build();
     }
 }

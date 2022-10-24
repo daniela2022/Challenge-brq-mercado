@@ -1,6 +1,7 @@
 package com.challengebrq.mercado.projetochallenge.usecase.gateway;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,7 +12,7 @@ public interface ProdutoGateway {
 
     Produto criarProduto(Produto produto);
 
-    List<Produto> listarProdutos();
+    List<Produto> listarProdutos(String nome, String marca,Double preco, Integer departamento, Boolean ativo);
 
     Optional<Produto> detalharProdutoPorId(String id);
 

@@ -1,7 +1,9 @@
 package com.challengebrq.mercado.projetochallenge.dataprovider.implementation;
 
+import com.challengebrq.mercado.projetochallenge.dataprovider.entity.DepartamentoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.entity.ProdutoEntity;
 import com.challengebrq.mercado.projetochallenge.dataprovider.repository.OfertaRepository;
+import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,6 +76,15 @@ class OfertaDataProviderTest {
                 .ofertado(false)
                 .ativo(true)
                 .porcentagemOferta(0)
+                .departamentos(List.of(mockDepartamento()))
+                .build();
+    }
+
+    private Departamento mockDepartamento() {
+        return Departamento.builder()
+                .id(1)
+                .nome("shampoo")
+                .descricao("shampoo para cabelos rebeldes")
                 .build();
     }
 
@@ -89,6 +100,15 @@ class OfertaDataProviderTest {
                 .produtoOfertado(true)
                 .produtoAtivo(true)
                 .produtoPorcentagemOferta(10)
+                .departamentos(List.of(mockDepartamentoEntity()))
+                .build();
+    }
+
+    private DepartamentoEntity mockDepartamentoEntity() {
+        return DepartamentoEntity.builder()
+                .idDepartamento(1)
+                .nome("Telefone")
+                .descricaoDepartamento("Celular")
                 .build();
     }
 

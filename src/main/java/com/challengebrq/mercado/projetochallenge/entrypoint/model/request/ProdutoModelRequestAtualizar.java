@@ -1,41 +1,43 @@
 package com.challengebrq.mercado.projetochallenge.entrypoint.model.request;
 
+import com.challengebrq.mercado.projetochallenge.entrypoint.utils.RemoveEspacoString;
+import com.challengebrq.mercado.projetochallenge.entrypoint.validation.IntegerEmBrancoValidation;
+import com.challengebrq.mercado.projetochallenge.entrypoint.validation.TextoEmBrancoValidation;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Getter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.Valid;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class ProdutoModelRequestAtualizar {
 
-    @NotBlank
-    private String idProduto;
+    @Size(max = 60)
+    @JsonDeserialize(using = RemoveEspacoString.class)
+    @TextoEmBrancoValidation
+    private String nome;
 
-    @NotNull
-    @NotBlank
-    private String nomeProduto;
+    @Size(max = 256)
+    @JsonDeserialize(using = RemoveEspacoString.class)
+    @TextoEmBrancoValidation
+    private String descricao;
 
-    @NotBlank
-    private String descricaoProduto;
+    @Size(max = 40)
+    @JsonDeserialize(using = RemoveEspacoString.class)
+    @TextoEmBrancoValidation
+    private String marca;
 
-    @NotBlank
-    private String marcaProduto;
+    @Positive
+    private Double preco;
 
-
-    private Double precoProduto;
-
-    @NotBlank
-    private Boolean ativoProduto;
-
-    @NotBlank
-    private Boolean ofertadoProduto;
-
-    @NotNull
-    @NotBlank
-    private Integer porcentagemOferta;
+   @Valid
+    List<Integer> idsDepartamento;
 }

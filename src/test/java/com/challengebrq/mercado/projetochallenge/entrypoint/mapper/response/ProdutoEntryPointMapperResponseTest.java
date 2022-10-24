@@ -1,6 +1,7 @@
 package com.challengebrq.mercado.projetochallenge.entrypoint.mapper.response;
 
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.response.ProdutoModelResponse;
+import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
 
@@ -19,15 +20,16 @@ class ProdutoEntryPointMapperResponseTest {
         assertNotNull(produtoModelResponse);
         assertAll(
                 () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",produtoModelResponse.getIdProduto()),
-                () -> assertEquals("shampoo",produtoModelResponse.getNomeProduto()),
-                () -> assertEquals("brilho intenso", produtoModelResponse.getDescricaoProduto()),
-                () -> assertEquals("Kerastase", produtoModelResponse.getMarcaProduto()),
-                () -> assertEquals(120.0, produtoModelResponse.getPrecoProduto()),
+                () -> assertEquals("shampoo",produtoModelResponse.getNome()),
+                () -> assertEquals("brilho intenso", produtoModelResponse.getDescricao()),
+                () -> assertEquals("Kerastase", produtoModelResponse.getMarca()),
+                () -> assertEquals(120.0, produtoModelResponse.getPreco()),
                 () -> assertEquals("22/05/2018", produtoModelResponse.getDataCadastro()),
                 () -> assertEquals("23/06/2019", produtoModelResponse.getDataAtualizacao()),
-                () -> assertTrue(produtoModelResponse.getAtivoProduto()),
-                () -> assertFalse(produtoModelResponse.getOfertadoProduto()),
-                () -> assertEquals(0, produtoModelResponse.getPorcentagemOferta())
+                () -> assertTrue(produtoModelResponse.getAtivo()),
+                () -> assertFalse(produtoModelResponse.getOfertado()),
+                () -> assertEquals(0, produtoModelResponse.getPorcentagemOferta()),
+                () -> assertEquals(1, produtoModelResponse.getDepartamentos().get(0).getIdDepartamento())
         );
     }
 
@@ -40,9 +42,9 @@ class ProdutoEntryPointMapperResponseTest {
         assertNotNull(produtoModelResponse);
         assertAll(
                 () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",produtoModelResponse.get(0).getIdProduto()),
-                () -> assertEquals("shampoo",produtoModelResponse.get(0).getNomeProduto()),
-                () -> assertEquals("Kerastase", produtoModelResponse.get(0).getMarcaProduto()),
-                () -> assertEquals(120.0, produtoModelResponse.get(0).getPrecoProduto())
+                () -> assertEquals("shampoo",produtoModelResponse.get(0).getNome()),
+                () -> assertEquals("Kerastase", produtoModelResponse.get(0).getMarca()),
+                () -> assertEquals(120.0, produtoModelResponse.get(0).getPreco())
         );
     }
 
@@ -58,6 +60,13 @@ class ProdutoEntryPointMapperResponseTest {
                 .ativo(true)
                 .ofertado(false)
                 .porcentagemOferta(0)
+                .departamentos(List.of(mockDepartamento()))
+                .build();
+    }
+
+    private Departamento mockDepartamento() {
+        return Departamento.builder()
+                .id(1)
                 .build();
     }
 }

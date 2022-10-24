@@ -3,7 +3,6 @@ package com.challengebrq.mercado.projetochallenge.dataprovider.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Builder
 @Getter
@@ -11,15 +10,17 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+//@Table(name = "departamentos")
 public class DepartamentoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idDepartamento;
+    private Integer idDepartamento;
 
     @Column(nullable = false)
     private String nome;
 
     @Column(nullable = false)
     private String descricaoDepartamento;
+
 }

@@ -9,4 +9,11 @@ public class MercadoSpecs {
         return ((root, query, builder) -> builder.like(root.get("nome"), "%" + nome + "%"));
     }
 
+
+
+
+
+
+
+
 }

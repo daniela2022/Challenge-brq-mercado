@@ -1,11 +1,12 @@
 package com.challengebrq.mercado.projetochallenge.dataprovider.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Builder
@@ -14,6 +15,7 @@ import java.util.Objects;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+//@Table(name = "produtos")
 public class ProdutoEntity {
 
     @EqualsAndHashCode.Include
@@ -46,6 +48,13 @@ public class ProdutoEntity {
 
     @Column(nullable = false)
     private Integer produtoPorcentagemOferta;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "produto_departamento",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "departamento_id"))
+    private List<DepartamentoEntity> departamentos = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

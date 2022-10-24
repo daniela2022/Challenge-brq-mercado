@@ -11,11 +11,12 @@ public class OfertaEntryPointMapperResponse {
     public static OfertaModelResponse converterOfertaParaModel(Produto produto) {
         return OfertaModelResponse.builder()
                 .idProduto(produto.getId())
-                .nomeProduto(produto.getNome())
-                .marcaProduto(produto.getMarca())
-                .precoProduto(produto.getPreco())
-                .ofertadoProduto(produto.getOfertado())
+                .nome(produto.getNome())
+                .marca(produto.getMarca())
+                .preco(produto.getPreco())
+                .ofertado(produto.getOfertado())
                 .porcentagemOferta(produto.getPorcentagemOferta())
+                .dataAtualizacao(produto.getDataAtualizacao())
                 .build();
     }
 

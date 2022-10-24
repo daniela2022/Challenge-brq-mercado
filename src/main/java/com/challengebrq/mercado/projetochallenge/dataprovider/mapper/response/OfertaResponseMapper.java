@@ -16,6 +16,7 @@ public class OfertaResponseMapper {
                 .preco(produtoEntity.getPrecoProduto())
                 .ofertado(produtoEntity.getProdutoOfertado())
                 .porcentagemOferta(produtoEntity.getProdutoPorcentagemOferta())
+                .dataAtualizacao(produtoEntity.getDataAtualizacao())
                 .build();
     }
 

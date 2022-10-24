@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class DepartamentoEntryPointResponseMapper {
@@ -13,8 +14,8 @@ public class DepartamentoEntryPointResponseMapper {
     public static DepartamentoModelResponse converterDepartamentoParaModel(Departamento departamento){
         return DepartamentoModelResponse.builder()
                 .idDepartamento(departamento.getId())
-                .nomeDepartamento(departamento.getNome())
-                .descricaoDepartamento(departamento.getDescricao())
+                .nome(departamento.getNome())
+                .descricao(departamento.getDescricao())
                 .build();
     }
 
@@ -27,4 +28,16 @@ public class DepartamentoEntryPointResponseMapper {
         return departamentoModelResponse;
     }
 
+    public static DepartamentoModelResponse converterIdNome(Departamento departamento){
+        return DepartamentoModelResponse.builder()
+                .idDepartamento(departamento.getId())
+                .nome(departamento.getNome())
+                .build();
+    }
+
+    public static List<DepartamentoModelResponse> convertList(List<Departamento> departamentos){
+        return departamentos.stream()
+                .map(DepartamentoEntryPointResponseMapper::converterIdNome)
+                .collect(Collectors.toList());
+    }
 }

@@ -2,6 +2,7 @@ package com.challengebrq.mercado.projetochallenge.usecase.gateway;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,7 +14,8 @@ public interface DepartamentoGateway {
 
     List<Departamento> listarDepartamento(String nome);
 
-    Optional<Departamento> buscarDepartamentoPorId(Long id);
+    Optional<Departamento> buscarDepartamentoPorId(Integer id);
 
-    void deletarDepartamentoPorId(Long idDepartamento);
+    void deletarDepartamentoPorId(Integer idDepartamento);
+
 }

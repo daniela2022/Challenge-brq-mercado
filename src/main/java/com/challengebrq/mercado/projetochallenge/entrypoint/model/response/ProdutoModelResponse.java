@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -13,13 +15,14 @@ import lombok.Getter;
 public class ProdutoModelResponse {
 
     private String idProduto;
-    private String nomeProduto;
-    private String descricaoProduto;
-    private String marcaProduto;
-    private Double precoProduto;
+    private String nome;
+    private String descricao;
+    private String marca;
+    private Double preco;
     private String dataCadastro;
     private String dataAtualizacao;
-    private Boolean ativoProduto;
-    private Boolean ofertadoProduto;
+    private Boolean ativo;
+    private Boolean ofertado;
     private Integer porcentagemOferta;
+    private List<DepartamentoModelResponse> departamentos;
 }

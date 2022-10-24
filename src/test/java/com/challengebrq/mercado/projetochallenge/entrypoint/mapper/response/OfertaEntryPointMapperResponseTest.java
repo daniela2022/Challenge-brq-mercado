@@ -19,10 +19,10 @@ class OfertaEntryPointMapperResponseTest {
         assertNotNull(ofertaModelResponse);
         assertAll(
                 () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",ofertaModelResponse.getIdProduto()),
-                () -> assertEquals("shampoo",ofertaModelResponse.getNomeProduto()),
-                () -> assertEquals("Kerastase", ofertaModelResponse.getMarcaProduto()),
-                () -> assertEquals(120.0, ofertaModelResponse.getPrecoProduto()),
-                () -> assertFalse(ofertaModelResponse.getOfertadoProduto()),
+                () -> assertEquals("shampoo",ofertaModelResponse.getNome()),
+                () -> assertEquals("Kerastase", ofertaModelResponse.getMarca()),
+                () -> assertEquals(120.0, ofertaModelResponse.getPreco()),
+                () -> assertFalse(ofertaModelResponse.getOfertado()),
                 () -> assertEquals(10, ofertaModelResponse.getPorcentagemOferta())
         );
     }
@@ -36,10 +36,10 @@ class OfertaEntryPointMapperResponseTest {
         assertNotNull(ofertaModelResponse);
         assertAll(
                 () -> assertEquals("3322c422-a336-4064-96b3-2fc39ea4a108",ofertaModelResponse.get(0).getIdProduto()),
-                () -> assertEquals("shampoo",ofertaModelResponse.get(0).getNomeProduto()),
-                () -> assertEquals("Kerastase", ofertaModelResponse.get(0).getMarcaProduto()),
-                () -> assertEquals(120.0, ofertaModelResponse.get(0).getPrecoProduto()),
-                () -> assertFalse(ofertaModelResponse.get(0).getOfertadoProduto()),
+                () -> assertEquals("shampoo",ofertaModelResponse.get(0).getNome()),
+                () -> assertEquals("Kerastase", ofertaModelResponse.get(0).getMarca()),
+                () -> assertEquals(120.0, ofertaModelResponse.get(0).getPreco()),
+                () -> assertFalse(ofertaModelResponse.get(0).getOfertado()),
                 () -> assertEquals(10, ofertaModelResponse.get(0).getPorcentagemOferta())
         );
     }

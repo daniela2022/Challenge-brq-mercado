@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Builder
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -14,6 +16,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OfertaModelRequestRemover {
 
-    private String idProduto;
-
+    @NotBlank
+    private String id;
 }

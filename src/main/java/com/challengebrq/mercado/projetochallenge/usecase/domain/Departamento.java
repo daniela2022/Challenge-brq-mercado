@@ -2,6 +2,8 @@ package com.challengebrq.mercado.projetochallenge.usecase.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -9,7 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 public class Departamento {
 
-    private Long id;
+    private Integer id;
     private String nome;
     private String descricao;
+    //private List<Integer> codigosDepartamento;
 }

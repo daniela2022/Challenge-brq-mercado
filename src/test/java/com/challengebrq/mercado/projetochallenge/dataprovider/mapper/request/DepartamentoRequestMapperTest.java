@@ -16,7 +16,7 @@ class DepartamentoRequestMapperTest {
 
         assertNotNull(departamentoEntity);
         assertAll(
-                () -> assertEquals(2L, departamentoEntity.getIdDepartamento()),
+                () -> assertEquals(2, departamentoEntity.getIdDepartamento()),
                 () -> assertEquals("shampoo", departamentoEntity.getNome()),
                 () -> assertEquals("shampoo para cabelos coloridos", departamentoEntity.getDescricaoDepartamento())
         );
@@ -24,7 +24,7 @@ class DepartamentoRequestMapperTest {
 
     private Departamento mockDepartamento(){
         return Departamento.builder()
-                .id(2L)
+                .id(2)
                 .nome("shampoo")
                 .descricao("shampoo para cabelos coloridos")
                 .build();

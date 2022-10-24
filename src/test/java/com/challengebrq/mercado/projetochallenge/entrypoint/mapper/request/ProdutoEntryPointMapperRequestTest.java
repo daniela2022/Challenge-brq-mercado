@@ -1,9 +1,12 @@
 package com.challengebrq.mercado.projetochallenge.entrypoint.mapper.request;
 
+import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.DepartamentoModelRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequest;
 import com.challengebrq.mercado.projetochallenge.entrypoint.model.request.ProdutoModelRequestAtualizar;
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +23,8 @@ class ProdutoEntryPointMapperRequestTest {
                 () -> assertEquals("shampoo",produto.getNome()),
                 () -> assertEquals("brilho intenso", produto.getDescricao()),
                 () -> assertEquals("Kerastase", produto.getMarca()),
-                () -> assertEquals(120.0, produto.getPreco())
+                () -> assertEquals(120.0, produto.getPreco()),
+                () -> assertEquals(1, produto.getDepartamentos().get(0).getId())
         );
     }
 
@@ -47,10 +51,7 @@ class ProdutoEntryPointMapperRequestTest {
                 () -> assertEquals("shampoo",produto.getNome()),
                 () -> assertEquals("brilho radiante", produto.getDescricao()),
                 () -> assertEquals("Elseve", produto.getMarca()),
-                () -> assertEquals(10.0, produto.getPreco()),
-                () -> assertTrue( produto.getAtivo()),
-                () -> assertTrue( produto.getOfertado()),
-                () -> assertEquals(10, produto.getPorcentagemOferta())
+                () -> assertEquals(10.0, produto.getPreco())
         );
     }
 
@@ -62,23 +63,26 @@ class ProdutoEntryPointMapperRequestTest {
 
     private ProdutoModelRequest mockProdutoModelRequest(){
         return ProdutoModelRequest.builder()
-                .nomeProduto("shampoo")
-                .descricaoProduto("brilho intenso")
-                .marcaProduto("Kerastase")
-                .precoProduto(120.0)
+                .nome("shampoo")
+                .descricao("brilho intenso")
+                .marca("Kerastase")
+                .preco(120.0)
+                .codigosDepartamento(List.of(1))
                 .build();
     }
 
     private ProdutoModelRequestAtualizar mockProdutoModelRequestAtualizar(String idProduto){
         return ProdutoModelRequestAtualizar.builder()
-                .idProduto(idProduto)
-                .nomeProduto("shampoo")
-                .descricaoProduto("brilho radiante")
-                .marcaProduto("Elseve")
-                .precoProduto(10.0)
-                .ativoProduto(true)
-                .ofertadoProduto(true)
-                .porcentagemOferta(10)
+                .nome("shampoo")
+                .descricao("brilho radiante")
+                .marca("Elseve")
+                .preco(10.0)
+                .build();
+    }
+
+    private DepartamentoModelRequest mockDepartamento() {
+        return DepartamentoModelRequest.builder()
+                .nome("Eletronico")
                 .build();
     }
 }

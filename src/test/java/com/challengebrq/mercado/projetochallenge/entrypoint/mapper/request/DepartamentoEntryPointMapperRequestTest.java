@@ -23,8 +23,8 @@ class DepartamentoEntryPointMapperRequestTest {
 
     private DepartamentoModelRequest mockDepartamentoRequest(){
         return DepartamentoModelRequest.builder()
-                .nomeDepartamento("Telefone")
-                .descricaoDepartamento("Celular")
+                .nome("Telefone")
+                .descricao("Celular")
                 .build();
     }
 

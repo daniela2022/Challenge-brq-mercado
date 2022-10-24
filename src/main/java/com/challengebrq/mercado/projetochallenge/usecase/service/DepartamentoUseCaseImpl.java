@@ -2,8 +2,10 @@ package com.challengebrq.mercado.projetochallenge.usecase.service;
 
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Departamento;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.DuplicidadeNomeException;
+import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeEmUsoException;
 import com.challengebrq.mercado.projetochallenge.usecase.exceptions.EntidadeNaoEncontradaException;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.DepartamentoGateway;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,14 +33,17 @@ public class DepartamentoUseCaseImpl implements DepartamentoUseCase {
     }
 
     @Override
-    public void deletarDepartamento(Long idDepartamento) {
+    public void deletarDepartamento(Integer idDepartamento) {
         var departamento = buscarDepartamentoPorId(idDepartamento);
-
-        departamentoGateway.deletarDepartamentoPorId(departamento.getId());
+        try{
+            departamentoGateway.deletarDepartamentoPorId(departamento.getId());
+        }catch (DataIntegrityViolationException e){
+            throw new EntidadeEmUsoException(String.format("Departamento de código %s não pode ser removido, pois está em uso", idDepartamento));
+        }
     }
 
     @Override
-    public Departamento buscarDepartamentoPorId(Long idDepartamento) {
+    public Departamento buscarDepartamentoPorId(Integer idDepartamento) {
         return departamentoGateway.buscarDepartamentoPorId(idDepartamento)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException
                         (String.format("Não existe cadastro de departamento com código %s", idDepartamento)));
@@ -51,5 +56,4 @@ public class DepartamentoUseCaseImpl implements DepartamentoUseCase {
                             "já tem cadastro no sistema", departamentoRequest.getNome())));
                 });
     }
-
 }

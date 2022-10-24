@@ -44,13 +44,13 @@ public class DepartamentoDataProvider implements DepartamentoGateway {
     }
 
     @Override
-    public Optional<Departamento> buscarDepartamentoPorId(Long id) {
+    public Optional<Departamento> buscarDepartamentoPorId(Integer id) {
         return departamentoRepository.findById(id)
                 .map(DepartamentoResponseMapper::convert);
     }
 
     @Override
-    public void deletarDepartamentoPorId(Long idDepartamento) {
+    public void deletarDepartamentoPorId(Integer idDepartamento) {
 
         departamentoRepository.deleteById(idDepartamento);
     }

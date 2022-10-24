@@ -10,8 +10,8 @@ public interface DepartamentoUseCase {
 
     List<Departamento> listarDepartamento(String nome);
 
-    void deletarDepartamento(Long idDepartamento);
+    void deletarDepartamento(Integer idDepartamento);
 
-    Departamento buscarDepartamentoPorId(Long idDepartamento);
+    Departamento buscarDepartamentoPorId(Integer idDepartamento);
 
 }

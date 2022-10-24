@@ -37,7 +37,7 @@ class DepartamentoUseCaseImplTest {
 
         assertNotNull(departamento);
         assertAll(
-                () -> assertEquals(1L, departamento.getId()),
+                () -> assertEquals(1, departamento.getId()),
                 () -> assertEquals("Telefone", departamento.getNome()),
                 () -> assertEquals("Celular", departamento.getDescricao())
         );
@@ -53,7 +53,7 @@ class DepartamentoUseCaseImplTest {
 
         assertNotNull(departamentos);
         assertAll(
-                () -> assertEquals(1L, departamentos.get(0).getId()),
+                () -> assertEquals(1, departamentos.get(0).getId()),
                 () -> assertEquals("Telefone", departamentos.get(0).getNome()),
                 () -> assertEquals("Celular", departamentos.get(0).getDescricao())
         );
@@ -69,7 +69,7 @@ class DepartamentoUseCaseImplTest {
 
         assertNotNull(departamentos);
         assertAll(
-                () -> assertEquals(1L, departamentos.get(0).getId()),
+                () -> assertEquals(1, departamentos.get(0).getId()),
                 () -> assertEquals("Telefone", departamentos.get(0).getNome()),
                 () -> assertEquals("Celular", departamentos.get(0).getDescricao())
         );
@@ -80,13 +80,13 @@ class DepartamentoUseCaseImplTest {
 
         var departamentoCriado = mockDepartamentoResponse();
 
-        given(departamentoGateway.buscarDepartamentoPorId(1L)).willReturn(Optional.of(departamentoCriado));
+        given(departamentoGateway.buscarDepartamentoPorId(1)).willReturn(Optional.of(departamentoCriado));
 
-        Departamento departamento = departamentoUseCase.buscarDepartamentoPorId(1L);
+        Departamento departamento = departamentoUseCase.buscarDepartamentoPorId(1);
 
         assertNotNull(departamento);
         assertAll(
-                () -> assertEquals(1L, departamento.getId())
+                () -> assertEquals(1, departamento.getId())
         );
     }
 
@@ -115,7 +115,7 @@ class DepartamentoUseCaseImplTest {
 
     private Departamento mockDepartamentoResponse() {
         return Departamento.builder()
-                .id(1L)
+                .id(1)
                 .nome("Telefone")
                 .descricao("Celular")
                 .build();

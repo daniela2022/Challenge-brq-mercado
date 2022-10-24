@@ -8,8 +8,8 @@ import com.challengebrq.mercado.projetochallenge.dataprovider.repository.Produto
 import com.challengebrq.mercado.projetochallenge.usecase.domain.Produto;
 import com.challengebrq.mercado.projetochallenge.usecase.gateway.ProdutoGateway;
 import lombok.AllArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +19,8 @@ import java.util.Optional;
 public class ProdutoDataProvider implements ProdutoGateway {
 
     private final ProdutoRepository produtoRepository;
+
+    private final DepartamentoDataProvider departamentoDataProvider;
 
     @Override
     public Optional<Produto> buscarProdutoPorNome(String nomeProduto) {
@@ -40,8 +42,8 @@ public class ProdutoDataProvider implements ProdutoGateway {
     }
 
     @Override
-    public List<Produto> listarProdutos() {
-        List<ProdutoEntity> produtos = produtoRepository.findAll();
+    public List<Produto> listarProdutos(String nome, String marca,Double preco, Integer departamento, Boolean ativo) {
+        List<ProdutoEntity> produtos = produtoRepository.consultar(nome, marca, preco, departamento, ativo);
         return ProdutoResponseMapper.convert(produtos);
     }
 
@@ -60,12 +62,12 @@ public class ProdutoDataProvider implements ProdutoGateway {
 
     @Override
     public Produto atualizarParcialProduto(Produto produto) {
+
             ProdutoEntity produtoAtual = ProdutoRequestMapper.convert(produto);
             ProdutoEntity produtoCadastrado = produtoRepository.save(produtoAtual);
 
             return ProdutoResponseMapper.converter(produtoCadastrado);
     }
-
 }
 
 

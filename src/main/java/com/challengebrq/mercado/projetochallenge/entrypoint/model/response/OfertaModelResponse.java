@@ -13,9 +13,10 @@ import lombok.Getter;
 public class OfertaModelResponse {
 
     private String idProduto;
-    private String nomeProduto;
-    private String marcaProduto;
-    private Double precoProduto;
-    private Boolean ofertadoProduto;
+    private String nome;
+    private String marca;
+    private Double preco;
+    private Boolean ofertado;
     private Integer porcentagemOferta;
+    private String dataAtualizacao;
 }

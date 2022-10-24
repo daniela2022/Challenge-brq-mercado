@@ -9,8 +9,8 @@ public class DepartamentoEntryPointMapperRequest {
 
     public static Departamento converter(DepartamentoModelRequest departamentoModelRequest) {
         return Departamento.builder()
-                .nome(departamentoModelRequest.getNomeDepartamento())
-                .descricao(departamentoModelRequest.getDescricaoDepartamento())
+                .nome(departamentoModelRequest.getNome())
+                .descricao(departamentoModelRequest.getDescricao())
                 .build();
     }
 }

@@ -18,9 +18,9 @@ class DepartamentoEntryPointResponseMapperTest {
 
         assertNotNull(departamentoModelResponse);
         assertAll(
-                () -> assertEquals(5L,departamentoModelResponse.getIdDepartamento()),
-                () -> assertEquals("Eletrônico",departamentoModelResponse.getNomeDepartamento()),
-                () -> assertEquals("Produtos eletrônicos", departamentoModelResponse.getDescricaoDepartamento())
+                () -> assertEquals(5,departamentoModelResponse.getIdDepartamento()),
+                () -> assertEquals("Eletrônico",departamentoModelResponse.getNome()),
+                () -> assertEquals("Produtos eletrônicos", departamentoModelResponse.getDescricao())
         );
     }
 
@@ -32,15 +32,15 @@ class DepartamentoEntryPointResponseMapperTest {
 
         assertNotNull(departamentosModelResponse);
         assertAll(
-                () -> assertEquals(5L,departamentosModelResponse.get(0).getIdDepartamento()),
-                () -> assertEquals("Eletrônico",departamentosModelResponse.get(0).getNomeDepartamento()),
-                () -> assertEquals("Produtos eletrônicos", departamentosModelResponse.get(0).getDescricaoDepartamento())
+                () -> assertEquals(5,departamentosModelResponse.get(0).getIdDepartamento()),
+                () -> assertEquals("Eletrônico",departamentosModelResponse.get(0).getNome()),
+                () -> assertEquals("Produtos eletrônicos", departamentosModelResponse.get(0).getDescricao())
         );
     }
 
     private Departamento mockDepartamentoResponse(){
         return Departamento.builder()
-                .id(5L)
+                .id(5)
                 .nome("Eletrônico")
                 .descricao("Produtos eletrônicos")
                 .build();

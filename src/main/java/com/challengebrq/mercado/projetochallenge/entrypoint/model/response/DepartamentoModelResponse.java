@@ -12,7 +12,7 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class DepartamentoModelResponse {
 
-    private Long idDepartamento;
-    private String nomeDepartamento;
-    private String descricaoDepartamento;
+    private Integer idDepartamento;
+    private String nome;
+    private String descricao;
 }

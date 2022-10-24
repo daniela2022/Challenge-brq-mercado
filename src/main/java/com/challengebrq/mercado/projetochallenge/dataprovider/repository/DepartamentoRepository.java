@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.Optional;
 
-public interface DepartamentoRepository extends JpaRepository<DepartamentoEntity, Long> , DepartamentoRepositoryQuery, JpaSpecificationExecutor<DepartamentoEntity> {
+public interface DepartamentoRepository extends JpaRepository<DepartamentoEntity, Integer> , DepartamentoRepositoryQuery, JpaSpecificationExecutor<DepartamentoEntity> {
 
     Optional<DepartamentoEntity> findByNome(String nomeDepartamento);
 }
